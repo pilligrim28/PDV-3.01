@@ -1,24 +1,28 @@
 package main
 
 import (
-	"dr600-server/internal/sip"
+	"dr600-server/internal/config"
 	"dr600-server/internal/storage"
+	"log"
 
 	"github.com/gin-gonic/gin"
 )
 
 func main() {
-	// Инициализация хранилища
-	storage := storage.New()
+	cfg, err := config.LoadConfig("config.yaml")
+    if err != nil {
+        log.Fatal("Failed to load config:", err)
+    }
 
-	// Запуск SIP сервера
-	sipServer := sip.NewServer(":5060")
-	go sipServer.Start()
-
-	// Настройка веб-сервера
-	r := gin.Default()
-	setupRoutes(r, storage)
-	r.Run(":8080")
+    r := gin.Default()
+    r.GET("/", func(c *gin.Context) {
+        c.JSON(200, gin.H{
+            "status":  "ok",
+            "version": cfg.DR600.BaseURL,
+        })
+    })
+    
+    r.Run(":" + cfg.Server.Port)
 }
 
 func setupRoutes(r *gin.Engine, storage *storage.Storage) {

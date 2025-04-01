@@ -1,0 +1,11 @@
+# config.yaml
+server:
+  port: 8080
+ais:
+  port: 10110
+sip:
+  port: 5060
+database:
+  dsn: "dr600.db"
+dr600:
+  base_url: "http://dr600-api.local"
