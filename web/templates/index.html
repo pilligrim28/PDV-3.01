@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- web/templates/index.html -->
+<form @submit.prevent="addRepeater">
+    <input v-model="repeater.name" placeholder="Название">
+    <input v-model="repeater.ip" placeholder="IP">
+    <input v-model="repeater.frequency" placeholder="Частота">
+    <button type="submit">Добавить</button>
+</form>
+<!-- Форма настройки ретранслятора -->
+<form method="post" action="/repeaters">
+    <input type="text" name="ip" placeholder="IP адрес" required>
+    <input type="text" name="frequency" placeholder="Частота (MHz)" required>
+    <select name="mode">
+        <option value="digital">Цифровой</option>
+        <option value="analog">Аналоговый</option>
+    </select>
+    <button type="submit">Сохранить</button>
+</form>
+</body>
+</html>
